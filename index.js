@@ -4,12 +4,13 @@ const express = require('express')
 const morgan = require('morgan')
 const axios = require('axios');
 const FormData = require('form-data');
-
+const cors = require('cors')
 
 const app = express()
 app.enable('trust proxy')
 app.use(morgan('common'))
 app.use(express.json())
+app.use(cors('*'))
 
 app.get('/:number', async (req, res) => {
   console.log(req.params.number)
