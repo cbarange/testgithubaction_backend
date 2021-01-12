@@ -1,0 +1,31 @@
+name: CI
+on: 
+  push:
+    branches:
+      - develop
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: yarn install
+    - run: yarn test
+  # Create merge request with main with automerge label
+  pull-request:
+    if: success()
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "main"
+        pr_label: "automerge"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+  
+
