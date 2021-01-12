@@ -13,17 +13,14 @@ app.use(express.json())
 app.use(cors('*'))
 
 app.get('/:number', async (req, res) => {
-  console.log(req.params.number)
-
-  var data = new FormData();
-  data.append('tool', 'nombres-cisterciens');
-  data.append('number', req.params.number);
+  var data = new FormData()
+  data.append('tool', 'nombres-cisterciens')
+  data.append('number', req.params.number)
 
   var config = {
     method: 'post',
     url: 'https://www.dcode.fr/api/',
     headers: { 
-      'Cookie': 'PHPSESSID=e5b3d1fbee076ebaba4a3cc1c558baa1', 
       ...data.getHeaders()
     },
     data : data
@@ -31,13 +28,11 @@ app.get('/:number', async (req, res) => {
 
   axios(config)
   .then(function (response) {
-    console.log(res.json(response.data));
+    console.log(res.json(response.data))
   })
   .catch(function (error) {
     res.json(error)
   })
-
-  
 })
 
 const port = process.env.PORT || 5225
