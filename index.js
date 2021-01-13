@@ -12,6 +12,11 @@ app.use(morgan('common'))
 app.use(express.json())
 app.use(cors('*'))
 
+
+app.get('/', async (req, res) => {
+  res.json("Welcome")
+})
+
 app.get('/:number', async (req, res) => {
   var data = new FormData()
   data.append('tool', 'nombres-cisterciens')
